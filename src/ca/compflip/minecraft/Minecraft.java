@@ -14,17 +14,17 @@ import ca.compflip.minecraft.level.Level;
 public class Minecraft implements Runnable {
 	private static final int WIDTH = 1024;
 	private static final int HEIGHT = 760;
-	private static final String TITLE = "Minecraft [press F7 to toggle textures]";
+	private static final String TITLE = "Minecraft";
 
 	public static boolean customTextures = false;
 	private boolean f7down = false;
-	
+
 	private Shader shader;
 
 	private ModelRenderer renderer;
 	private Level level;
 	private GUIObject crosshair;
-	
+
 	private Player player;
 
 	private void init() throws LWJGLException {
@@ -37,7 +37,7 @@ public class Minecraft implements Runnable {
 
 		level = new Level(16, 16);
 		player = new Player(level);
-		
+
 		player.position.x = 64;
 		player.position.y = 40;
 		player.position.z = 64;
@@ -45,10 +45,11 @@ public class Minecraft implements Runnable {
 		crosshair = new GUIObject("/tex/crosshair.png");
 		crosshair.quad.scale.x = 0.05f;
 		crosshair.quad.scale.y = 0.07f;
-		crosshair.quad.position.x -= crosshair.quad.scale.x/2;
-		crosshair.quad.position.y -= crosshair.quad.scale.y/2;
-		
+		crosshair.quad.position.x -= crosshair.quad.scale.x / 2;
+		crosshair.quad.position.y -= crosshair.quad.scale.y / 2;
+
 		Mouse.setGrabbed(true);
+		Mouse.setCursorPosition(0, 0);
 	}
 
 	private void start() {
@@ -73,13 +74,13 @@ public class Minecraft implements Runnable {
 	private void tick() {
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && Mouse.isGrabbed()) {
 			Mouse.setGrabbed(false);
+			Mouse.setCursorPosition(WIDTH / 2, HEIGHT / 2);
 		} else if (Mouse.isButtonDown(0) && !Mouse.isGrabbed() && Mouse.isInsideWindow()) {
 			Mouse.setGrabbed(true);
 		}
-		
+
 		if (Keyboard.isKeyDown(Keyboard.KEY_F7) && !f7down) {
 			customTextures = !customTextures;
-			System.out.println("Using custom textures: " + customTextures);
 			f7down = true;
 		} else if (!Keyboard.isKeyDown(Keyboard.KEY_F7) && f7down) {
 			f7down = false;
@@ -90,7 +91,6 @@ public class Minecraft implements Runnable {
 		renderer.camRot.set(player.rotation.y, player.rotation.x, 0);
 	}
 
-	
 	private void render() {
 		renderer.prepare();
 		level.render(renderer);

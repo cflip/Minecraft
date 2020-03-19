@@ -21,8 +21,10 @@ public class Player extends Entity {
 			rotation.x += Mouse.getDX() * TURN_SPEED;
 			rotation.y -= Mouse.getDY() * TURN_SPEED;
 
-			if (rotation.y > 90) rotation.y = 90;
-			if (rotation.y < -90) rotation.y = -90;
+			if (rotation.y > 90)
+				rotation.y = 90;
+			if (rotation.y < -90)
+				rotation.y = -90;
 
 			za = ya = xa = 0;
 
@@ -44,8 +46,10 @@ public class Player extends Entity {
 				za += Math.cos(Math.toRadians(rotation.x - 90)) * MOVE_SPEED;
 			}
 
-			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) ya += MOVE_SPEED;
-			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) ya -= MOVE_SPEED;
+			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+				ya += MOVE_SPEED;
+			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+				ya -= MOVE_SPEED;
 
 			if (canPass((float) xa, 0, 0)) position.x += xa;
 			if (canPass(0, (float) ya, 0)) position.y += ya;
@@ -54,6 +58,11 @@ public class Player extends Entity {
 	}
 
 	private boolean canPass(float xa, float ya, float za) {
+		int xx = (int) (position.x + xa);
+		int yy = (int) (position.y + ya);
+		int zz = (int) (position.z + za);
+
+		if (level.solid(xx, yy, zz)) return false;
 		return true;
 	}
 }
