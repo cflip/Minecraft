@@ -61,7 +61,7 @@ public class ChunkMeshGenerator {
 						if (!level.solid(xx, yy + 1, zz))
 							mesh.addFace(TOP_TEMPLATE, pos, new Vector2f(level.get(xx, yy, zz).textureIndex % 16, level.get(xx, yy, zz).textureIndex / 16));
 						if (!level.solid(xx, yy - 1, zz))
-							mesh.addFace(BOTTOM_TEMPLATE, pos, new Vector2f(level.get(x, yy, zz).textureIndex % 16, level.get(xx, yy, zz).textureIndex / 16));
+							mesh.addFace(BOTTOM_TEMPLATE, pos, new Vector2f(level.get(xx, yy, zz).textureIndex % 16, level.get(xx, yy, zz).textureIndex / 16));
 					}
 				}
 			}
