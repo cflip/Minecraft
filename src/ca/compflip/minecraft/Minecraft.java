@@ -63,15 +63,26 @@ public class Minecraft implements Runnable {
 			e.printStackTrace();
 		}
 
+		long lastTime = System.nanoTime();
+		float delta = 0;
+		float nanoPerTick = 1_000_000_000f / 25f;
+
 		while (!Display.isCloseRequested()) {
-			tick();
+			long now = System.nanoTime();
+			delta = (now - lastTime) / nanoPerTick;
+			lastTime = now;
+
+			if (delta > 0) {
+				tick(delta);
+				delta--;
+			}
+			
 			render();
 			Display.update();
-			Display.sync(60);
 		}
 	}
 
-	private void tick() {
+	private void tick(float deltaTime) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && Mouse.isGrabbed()) {
 			Mouse.setGrabbed(false);
 			Mouse.setCursorPosition(WIDTH / 2, HEIGHT / 2);
@@ -86,8 +97,8 @@ public class Minecraft implements Runnable {
 			f7down = false;
 		}
 
-		player.tick();
-		renderer.camPos.set(player.position.x, player.position.y+1.65f, player.position.z);
+		player.tick(deltaTime);
+		renderer.camPos.set(player.position.x, player.position.y + 1.65f, player.position.z);
 		renderer.camRot.set(player.rotation.y, player.rotation.x, 0);
 	}
 

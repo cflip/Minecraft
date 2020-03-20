@@ -15,5 +15,5 @@ public abstract class Entity {
 		velocity = new Vector3f(0, 0, 0);
 	}
 	
-	public abstract void tick();
+	public abstract void tick(float deltaTime);
 }
