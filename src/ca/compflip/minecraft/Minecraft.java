@@ -32,7 +32,7 @@ public class Minecraft implements Runnable {
 		Display.setTitle(TITLE);
 		Display.create();
 
-		shader = new Shader("/glsl/basic.glv", "/glsl/basic.glf");
+		shader = new Shader("/glsl/basic.vert", "/glsl/basic.frag");
 		renderer = new ModelRenderer(shader);
 
 		level = new Level(16, 16);

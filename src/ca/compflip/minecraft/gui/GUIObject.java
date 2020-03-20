@@ -23,7 +23,7 @@ public class GUIObject {
 	public Quad quad;
 	public Texture texture;
 
-	private static final Shader guiShader = new Shader("/glsl/gui.glv", "/glsl/gui.glf");
+	private static final Shader guiShader = new Shader("/glsl/gui.vert", "/glsl/gui.frag");
 
 	public GUIObject(String textureSrc) {
 		quad = new Quad();
