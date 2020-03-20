@@ -16,7 +16,7 @@ import ca.compflip.minecraft.util.MatrixMath;
 public class ModelRenderer {
 	private static final float FOV = 85f;
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 200f;
+	private static final float FAR_PLANE = 1000f;
 	
 	private Matrix4f projectionMatrix;
 	private Matrix4f viewMatrix;
