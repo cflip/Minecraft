@@ -10,6 +10,7 @@ import ca.compflip.minecraft.gfx.ModelRenderer;
 import ca.compflip.minecraft.gfx.Shader;
 import ca.compflip.minecraft.gui.GUIObject;
 import ca.compflip.minecraft.level.Level;
+import ca.compflip.minecraft.util.Timer;
 
 public class Minecraft implements Runnable {
 	private static final int WIDTH = 1024;
@@ -20,6 +21,7 @@ public class Minecraft implements Runnable {
 	private boolean f7down = false;
 
 	private Shader shader;
+	private Timer timer;
 
 	private ModelRenderer renderer;
 	private Level level;
@@ -34,6 +36,7 @@ public class Minecraft implements Runnable {
 
 		shader = new Shader("/glsl/basic.vert", "/glsl/basic.frag");
 		renderer = new ModelRenderer(shader);
+		timer = new Timer();
 
 		level = new Level(16, 16);
 		player = new Player(level);
@@ -63,22 +66,25 @@ public class Minecraft implements Runnable {
 			e.printStackTrace();
 		}
 
-		long lastTime = System.nanoTime();
-		float delta = 0;
-		float nanoPerTick = 1_000_000_000f / 25f;
+		long fpsTimer;
+		int fps = 0;
+
+		timer.getDelta();
+		fpsTimer = timer.getTime();
 
 		while (!Display.isCloseRequested()) {
-			long now = System.nanoTime();
-			delta = (now - lastTime) / nanoPerTick;
-			lastTime = now;
-
-			if (delta > 0) {
-				tick(delta);
-				delta--;
-			}
-			
+			tick(timer.getDelta());
 			render();
+
+			fps++;
+
 			Display.update();
+
+			if (timer.getTime() - fpsTimer > 1000) {
+				Display.setTitle(TITLE + " [" + fps + " fps]");
+				fps = 0;
+				fpsTimer += 1000;
+			}
 		}
 	}
 
@@ -98,7 +104,7 @@ public class Minecraft implements Runnable {
 		}
 
 		player.tick(deltaTime);
-		renderer.camPos.set(player.position.x, player.position.y + 1.65f, player.position.z);
+		renderer.camPos.set(player.position.x, player.position.y, player.position.z);
 		renderer.camRot.set(player.rotation.y, player.rotation.x, 0);
 	}
 
