@@ -87,7 +87,7 @@ public class Minecraft implements Runnable {
 		}
 
 		player.tick();
-		renderer.camPos.set(player.position.x, player.position.y, player.position.z);
+		renderer.camPos.set(player.position.x, player.position.y+1.65f, player.position.z);
 		renderer.camRot.set(player.rotation.y, player.rotation.x, 0);
 	}
 
