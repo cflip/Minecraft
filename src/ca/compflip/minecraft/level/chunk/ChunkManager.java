@@ -30,9 +30,14 @@ public class ChunkManager {
 	}
 
 	public void buildMeshes() {
+		System.out.println("Beginning mesh generation...");
+		long time = System.currentTimeMillis();
+		
 		for (int i = 0; i < chunks.length; i++) {
 			meshes[i] = ChunkMeshGenerator.buildChunkMesh(level, chunks[i]);
 		}
+		
+		System.out.println("Mesh generation done. Took " + Long.toString(System.currentTimeMillis() - time) + " ms.");
 	}
 
 	public TileType get(int x, int y, int z) {
@@ -47,7 +52,7 @@ public class ChunkManager {
 
 		return TileType.AIR;
 	}
-	
+
 	public void set(TileType type, int x, int y, int z) {
 		Vector2f chunkPosition = toChunkXZ(x, z);
 		int cx = (int) chunkPosition.x;
@@ -69,7 +74,7 @@ public class ChunkManager {
 		}
 		return 0;
 	}
-	
+
 	public boolean inBounds(int x, int y, int z) {
 		return x >= 0 && x < xChunks * Chunk.CHUNK_SIZE && //
 				y >= 0 && y < Chunk.CHUNK_DEPTH && //
