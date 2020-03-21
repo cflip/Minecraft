@@ -1,16 +1,17 @@
-package ca.compflip.minecraft;
+package ca.compflip.minecraft.entity;
+
+import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import ca.compflip.minecraft.entity.Entity;
 import ca.compflip.minecraft.level.Level;
 
 public class Player extends Entity {
 	private static final float MOVE_SPEED = 0.02f;
 	private static final float MOUSE_SENSITIVITY = 0.1f;
 	private static final float DRAG = 0.5f;
-
+	
 	public Player(Level level) {
 		super(level);
 	}
@@ -50,8 +51,17 @@ public class Player extends Entity {
 		velocity.y *= DRAG;
 		velocity.z *= DRAG;
 
-		position.x += velocity.x * deltaTime;
-		position.y += velocity.y * deltaTime;
-		position.z += velocity.z * deltaTime;
+		float xa = velocity.x * deltaTime;
+		float ya = velocity.y * deltaTime;
+		float za = velocity.z * deltaTime;
+		
+		position.x += xa;
+		position.y += ya;
+		position.z += za;
+	}
+	
+	public void resetPosition() {
+		Random random = new Random();
+		position.set(random.nextInt(level.width - 4) + 2, level.depth + 10, random.nextInt(level.width - 4) + 2);
 	}
 }

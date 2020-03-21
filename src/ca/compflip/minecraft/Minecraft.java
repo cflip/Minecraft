@@ -6,6 +6,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import ca.compflip.minecraft.entity.Player;
 import ca.compflip.minecraft.gfx.ModelRenderer;
 import ca.compflip.minecraft.gfx.Shader;
 import ca.compflip.minecraft.gui.GUIObject;
@@ -41,9 +42,7 @@ public class Minecraft implements Runnable {
 		level = new Level(16, 16);
 		player = new Player(level);
 
-		player.position.x = 64;
-		player.position.y = 40;
-		player.position.z = 64;
+		player.resetPosition();
 
 		crosshair = new GUIObject("/tex/crosshair.png");
 		crosshair.quad.scale.x = 0.05f;
@@ -102,6 +101,8 @@ public class Minecraft implements Runnable {
 		} else if (!Keyboard.isKeyDown(Keyboard.KEY_F7) && f7down) {
 			f7down = false;
 		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_F5)) player.resetPosition();
 
 		player.tick(deltaTime);
 		renderer.camPos.set(player.position.x, player.position.y, player.position.z);

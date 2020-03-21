@@ -16,8 +16,8 @@ public class ChunkManager {
 
 	public ChunkManager(Level level) {
 		this.level = level;
-		xChunks = level.width;
-		zChunks = level.height;
+		xChunks = level.xChunks;
+		zChunks = level.zChunks;
 
 		chunks = new Chunk[xChunks * zChunks];
 		meshes = new Model[xChunks * zChunks];
