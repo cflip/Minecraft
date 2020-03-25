@@ -33,7 +33,7 @@ public class MatrixMath {
 
 	public static Matrix4f createProjectionMatrix(float fov, float nearPlane, float farPlane) {
 		float aspect = (float) Display.getWidth() / (float) Display.getHeight();
-		float yScale = (float) ((1f / Math.tan(Math.toRadians(fov / 2f))) * aspect);
+		float yScale = (float) ((1f / Math.tan(Math.toRadians(fov / 2f))));
 		float xScale = yScale / aspect;
 		float frustumSize = farPlane - nearPlane;
 

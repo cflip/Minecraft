@@ -14,7 +14,7 @@ import org.lwjgl.util.vector.Vector3f;
 import ca.compflip.minecraft.util.MatrixMath;
 
 public class ModelRenderer {
-	private static final float FOV = 85f;
+	private static final float FOV = 70f;
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = 1000f;
 	
@@ -33,6 +33,8 @@ public class ModelRenderer {
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 		
 		projectionMatrix = MatrixMath.createProjectionMatrix(FOV, NEAR_PLANE, FAR_PLANE);
 		shader.storeMatrix(projectionMatrix, "u_pMatrix");
